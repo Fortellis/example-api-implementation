@@ -1,7 +1,7 @@
 runtime: nodejs
 vm: true
 service: nodejs-seed
-automatic_scaling:
+automatiqueryConditions.scaling:
   min_num_instances: 1
   max_num_instances: 2
   cool_down_period_sec: 120 # default value

@@ -5,13 +5,13 @@ export default class logger {
     constructor() {
         return bunyan.createLogger(
             {
-                name: "typeahead-api",
+                name: "ninja-service",
                 streams: [
                     {
                         stream: process.stdout
                     },
                     {
-                        path: 'logs/typeahead-api.log'
+                        path: 'logs/ninja-service.log'
                     }
                 ],
                 serializers: {

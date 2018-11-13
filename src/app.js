@@ -33,7 +33,7 @@ app.use(bodyparser.json({ strict: false }));
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/', router);
-let suggestions_routes = require('./controller/router');
-suggestions_routes.init(app,router);
+let all_routes = require('./controller/router');
+all_routes.init(app,router);
 
 module.exports = app;
