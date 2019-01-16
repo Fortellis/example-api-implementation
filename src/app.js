@@ -7,7 +7,7 @@ import cors from 'cors';
 import contentLength from 'express-content-length-validator';
 
 let _requestLogger = bunyanRequestLogger({
-    name: "ninja-service"});
+    name: "geonosis"});
 
 var app = express();
 app.use(_requestLogger.requestLogger());
