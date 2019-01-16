@@ -1,0 +1,199 @@
+swagger: '2.0'
+
+info:
+  version: "v0"
+  title: example users service
+  description: example users service
+
+host: api.fortellis.io
+basePath: /users
+schemes:
+ - https
+
+
+paths:
+  /:
+    get:
+      summary: health
+      description: health
+      operationId: health
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          headers:
+            Content-Language:
+              type: string
+            Content-Type:
+              type: string
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /v1/users:
+    get:
+      summary: get all users
+      description: get all users
+      operationId: getUsers
+      produces:
+        - application/json
+      responses:
+        200:
+          description: ok
+          headers:
+            Content-Language:
+              type: string
+            Content-Type:
+              type: string
+          schema:
+            $ref: '#/definitions/matchResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'  
+  /v1/user/{id}:
+    get:
+      summary: get user by Id
+      description: get user by Id
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id for the specific user being requested.
+        type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: ok
+          headers:
+            Content-Language:
+              type: string
+            Content-Type:
+              type: string
+          schema:
+            $ref: '#/definitions/matchResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'                        
+  /v1/match:
+    post:
+      summary: match
+      description: match
+      operationId: match
+      parameters:
+        - in: body
+          name: userProfile
+          description: user profile to match
+          schema:
+            $ref: '#/definitions/payload'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: ok
+          headers:
+            Content-Language:
+              type: string
+            Content-Type:
+              type: string
+          schema:
+            $ref: '#/definitions/matchResponse'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+
+  
+definitions:
+
+  id:
+    type: string
+  firstname:
+    type: string
+  lastname:
+    type: string
+  dob:
+    type: string
+  phone:
+    type: string
+  orgId:
+    type: string
+  email:
+    type: string
+
+
+
+  # Request
+  payload:
+    properties:
+      firstname:
+        $ref: '#/definitions/firstname'
+      lastname: 
+        $ref: '#/definitions/lastname'
+      orgId: 
+        $ref: '#/definitions/orgId'
+      email: 
+        $ref: '#/definitions/email'
+      phone: 
+        $ref: '#/definitions/phone'        
+    required:
+      - firstname
+      - lastname
+    
+
+  # Response
+  matchResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        description: array of users
+        items:
+          properties:
+            name:
+              $ref: '#/definitions/id'
+            entityId:
+              $ref: '#/definitions/firstname'
+            emailDomains: 
+              $ref: '#/definitions/lastname'
+            address: 
+              $ref: '#/definitions/dob'
+            phone: 
+              $ref: '#/definitions/phone'
+            website: 
+              $ref: '#/definitions/email'
+            geoLocation: 
+              $ref: '#/definitions/orgId'
+
+  # Common
+  ErrorResponse:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+    required:
+      - code
+      - message

@@ -1,1 +1,8 @@
-//any application config goes here
+{
+    "db":"test",
+    "table":"dbo.Users",
+    "SQLServer":"localhost",
+    "userName":"sa",
+    "password":"P@ssw0rd" 
+}
+

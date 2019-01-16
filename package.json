@@ -1,23 +1,20 @@
 {
-  "name": "node-express-seed",
+  "name": "geonosis",
   "version": "1.0.0",
-  "description": "seed project",
-  "main": "dist/app.js",
+  "description": "sample users api",
   "engines": {
     "node": "~9.0.0"
   },
   "scripts": {
     "clean": "rm -rf ./logs/*.log ./dist/**",
-    "createDir": "mkdir -p ./dist ./logs ./dist/logs ./dist/deployment",
-    "copy": "npm run createDir && cp ./src/config.json ./dist/. && cp ./src/deployment/app.yaml ./dist/deployment/ && cp -r ./src/bin ./dist/ && cp ./package.json ./dist/",
+    "createDir": "mkdir -p ./dist ./logs ./dist/logs ./dist/gcp-deployment",
+    "copy": "npm run createDir && cp ./src/config.json ./dist/. && cp ./src/gcp-deployment/app.yaml ./dist/gcp-deployment/ && cp -r ./src/bin ./dist/ && cp ./package.json ./dist/",
     "build": "npm run clean && npm run copy && babel src --presets babel-preset-es2015 --out-dir ./dist",
-    "lint": "./node_modules/jshint/bin/jshint ./src/*.js",
-    "vulnerabilityCheck": "./node_modules/nsp/bin/nsp check",
     "test": "istanbul cover _mocha ./test/unit/ -- --recursive | ./node_modules/bunyan/bin/bunyan -l warn -o short",
     "start": "node ./bin/www.js",
     "dev": "npm run build && cd ./dist && nodemon ./bin/www.js",
-    "deploy": "gcloud app deploy -q ./deployment/app.yaml",
-    "watch": "nodemon --exec \"npm run dev|./node_modules/bunyan/bin/bunyan\" --watch ./src"
+    "watch": "nodemon --exec \"npm run dev|./node_modules/bunyan/bin/bunyan\" --watch ./src",
+    "dockerize": "docker build -t geonosis:latest ."
   },
   "config": {
     "testUrl": "http://localhost:8080"
@@ -37,20 +34,9 @@
     "cors": "^2.7.1",
     "express": "^4.14.0",
     "express-content-length-validator": "^1.0.0",
-    "express-rate-limit": "^2.4.0",
-    "helmet": "^2.1.2",
     "nodemon": "^1.10.0",
-    "superagent": ">=3.7.0"
+    "tedious": "^3.0.1",
+    "@okta/jwt-verifier": "0.0.12"
   },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
-    "istanbul": "^1.1.0-alpha.1",
-    "jshint": "^2.9.2",
-    "mocha": "^3.0.2",
-    "nock": "^8.0.0",
-    "nsp": "^2.6.1",
-    "should": "^11.0.0",
-    "superagent-as-promised": "^4.0.0"
-  }
+  "devDependencies": {}
 }
